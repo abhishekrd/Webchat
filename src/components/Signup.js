@@ -5,36 +5,36 @@ import { useDispatch } from 'react-redux';
 
 const Signup = () => {
 
-    const [firstname,setFirstname] = useState("");
-    const [lastname,setLastname] = useState("");
-    const [email,setEmail] = useState("");
-    const [password,setPassword] = useState("");
-    const dispatch = useDispatch();
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
-    const signupUser = (e) => {
-         e.preventDefault();
+  const signupUser = (e) => {
+    e.preventDefault();
 
-         const user = { firstname, lastname, email, password}
-         
-         dispatch(signup(user))
-    }
+    const user = { firstname, lastname, email, password }
+
+    dispatch(signup(user))
+  }
 
   return (
     <Layout>
-     <form onSubmit={signupUser}>
- 
- <div className="container">
+      <form onSubmit={signupUser}>
 
-   <input type="text" placeholder="Enter First Name" value={firstname} onChange={(e) => setFirstname(e.target.value)} required />
-   <input type="text" placeholder="Enter Last Name" value={lastname} onChange={(e) => setLastname(e.target.value)} required />
-   <input type="text" placeholder="Enter Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-   <input type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-  
-   <button type="submit">SignUp</button>
- 
- </div>
+        <div className="container">
 
-</form>
+          <input type="text" placeholder="Enter First Name" value={firstname} onChange={(e) => setFirstname(e.target.value)} required />
+          <input type="text" placeholder="Enter Last Name" value={lastname} onChange={(e) => setLastname(e.target.value)} required />
+          <input type="text" placeholder="Enter Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <input type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+
+          <button type="submit">SignUp</button>
+
+        </div>
+
+      </form>
 
     </Layout>
   )
