@@ -43,7 +43,8 @@ export default (state = initialState, action) => {
             break;
         case `${authConstant.USER_LOGOUT}_SUCCESS`:
             state = {
-                ...initialState
+                ...initialState,
+                authenticated: false
             }
             break;
         case `${authConstant.USER_LOGOUT}_FAILURE`:

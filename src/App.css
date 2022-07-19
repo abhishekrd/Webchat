@@ -1,15 +1,24 @@
+*{
+  font-family: 'Roboto', sans-serif;
+  text-shadow: none;
+  font-weight: 400;
+}
+
 .header {
   width: 100%;
   position: relative;
   height: 60px;
   display: flex;
-  background: #1b5ff9;
+  font-weight: 400;
+  background: #781769;
   justify-content: space-between;
   box-sizing: border-box;
 }
 
 .logo {
-  font-size: 20px;
+  font-family: 'Be Vietnam Pro';
+  font-size: 1.5rem;
+  letter-spacing: 0.1rem;
   color: #fff;
   text-transform: capitalize;
   font-weight: bold;
@@ -56,7 +65,7 @@ form {
   border: 3px solid #f1f1f1;
 }
 
-/* Full-width inputs */
+
 input[type="text"],
 input[type="password"] {
   width: 100%;
@@ -67,7 +76,6 @@ input[type="password"] {
   box-sizing: border-box;
 }
 
-/* Set a style for all buttons */
 button {
   background-color: #04aa6d;
   color: white;
@@ -78,17 +86,17 @@ button {
   width: 100%;
 }
 
-/* Add a hover effect for buttons */
+
 button:hover {
   opacity: 0.8;
 }
 
-/* Add padding to containers */
+
 .container {
   padding: 16px;
 }
 
-/* Change styles for span and cancel button on extra small screens */
+
 @media screen and (max-width: 300px) {
   span.psw {
     display: block;
@@ -113,6 +121,7 @@ button:hover {
   overflow-x: hidden;
   border-right: 1px solid #ccc;
 }
+
 .chatArea {
   width: 70%;
   height: 100%;
@@ -138,11 +147,50 @@ button:hover {
   bottom: 0;
 }
 .chatControls textarea {
-  width: 90%;
+  width: 70%;
+  outline:none;
+  border: none;
+  margin: 0 2rem 0 2rem;
+  background-color: rgb(218, 218, 218);
+  border: 0.1rem solid rgb(218, 218, 218);
+  border-radius: 1rem;
+  padding: 1rem 0 0 1rem;
 }
-.chatControls button {
-  width: 10%;
+
+.button-new {
+  background: #FF4742;
+  border: 1px solid #FF4742;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  width: 7rem;
+  margin: 0 2rem 0 2rem;
+  transition: all 0.5s;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 16px;
+  min-height: 40px;
+  outline: 0;
+  text-align: center;
+  user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
 }
+
+.button-new:hover,
+.button-new:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: #FF4742;
+}
+
+.button-new:active {
+  opacity: .5;
+}
+
 
 .displayName {
   display: flex;

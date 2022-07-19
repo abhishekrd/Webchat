@@ -1,5 +1,5 @@
 import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, updateDoc, where } from "firebase/firestore";
 import { doc, setDoc } from "firebase/firestore";
 import { authConstant } from "./constants";
 
@@ -24,7 +24,8 @@ export const signup = (user) => {
                         firstname: user.firstname,
                         lastname: user.lastname,
                         uid: data.user.uid,
-                        createdAt: new Date()
+                        createdAt: new Date(),
+                        isOnline:true
                     })
                         .then(() => {
                             //
@@ -63,24 +64,32 @@ export const signin = (user) => {
         signInWithEmailAndPassword(auth, user.email, user.password)
             .then((data) => {
                 console.log(data);
-
-                const name = data.user.displayName.split(" ");
-                const firstname = name[0];
-                const lastname = name[1];
-
-                const loggedInUser = {
-                    firstname,
-                    lastname,
-                    uid: data.user.uid,
-                    email: data.user.email
-                }
-
-                localStorage.setItem('user', JSON.stringify(loggedInUser));
-
-                dispatch({
-                    type: `${authConstant.USER_LOGIN}_SUCCESS`,
-                    payload: { user: loggedInUser }
+                
+                const db = getFirestore();
+                updateDoc(doc(db,"users",data.user.uid),{
+                    isOnline: true
+                }).then(() => {
+                    const name = data.user.displayName.split(" ");
+                    const firstname = name[0];
+                    const lastname = name[1];
+    
+                    const loggedInUser = {
+                        firstname,
+                        lastname,
+                        uid: data.user.uid,
+                        email: data.user.email
+                    }
+    
+                    localStorage.setItem('user', JSON.stringify(loggedInUser));
+    
+                    dispatch({
+                        type: `${authConstant.USER_LOGIN}_SUCCESS`,
+                        payload: { user: loggedInUser }
+                    })
+                }).catch(error => {
+                    console.log(error);
                 })
+           
 
             }).catch(error => {
                 console.log(error);
@@ -112,20 +121,28 @@ export const isLoggedInUser = () => {
 }
 
 
-export const logout = () => {
+export const logout = (uid) => {
     return async dispatch => {
         dispatch({ type: `${authConstant.USER_LOGOUT}_REQUEST` })
-
-        const auth = getAuth();
-        signOut(auth).then(() => {
-            localStorage.clear();
-            dispatch({ type: `${authConstant.USER_LOGOUT}_SUCCESS` })
-        }).catch(error => {
-            console.log(error);
-            dispatch({
-                type: `${authConstant.USER_LOGOUT}_FAILURE`,
-                payload: { error }
+        const db = getFirestore();
+          updateDoc(doc(db,"users",uid),{
+            isOnline:false
+         }).then(() => {
+            const auth = getAuth();
+            signOut(auth).then(() => {
+                localStorage.clear();
+                dispatch({ type: `${authConstant.USER_LOGOUT}_SUCCESS` })
+                window.location.reload()
+            }).catch(error => {
+                console.log(error);
+                dispatch({
+                    type: `${authConstant.USER_LOGOUT}_FAILURE`,
+                    payload: { error }
+                })
             })
-        })
+         }).catch(error => {
+            console.log(error);
+         })
+        
     }
 }

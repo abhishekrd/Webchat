@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import Layout from './Layout'
 import { signup } from '../actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
 const Signup = () => {
 
@@ -10,6 +11,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const auth = useSelector(state => state.auth)
 
   const signupUser = (e) => {
     e.preventDefault();
@@ -18,6 +20,12 @@ const Signup = () => {
 
     dispatch(signup(user))
   }
+
+  const isAuth = auth.authenticated;
+  if(isAuth){
+  return <Navigate to="/" />
+} 
+
 
   return (
     <Layout>

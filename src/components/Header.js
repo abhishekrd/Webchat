@@ -6,6 +6,7 @@ import { logout } from '../actions';
 const Header = (props) => {
 
   const auth = useSelector(state => state.auth);
+  
   const dispatch = useDispatch();
 
   return (
@@ -27,7 +28,7 @@ const Header = (props) => {
 
         {auth.authenticated ? <li>
           <Link to={'#'} onClick={() => {
-            dispatch(logout());
+            dispatch(logout(auth.uid));
           }}>Logout</Link>
         </li> : null}
 

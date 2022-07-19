@@ -28,9 +28,12 @@ const Login = () => {
   }
 
   const isAuth = auth.authenticated;
-
+  if(isAuth){
+  return <Navigate to="/" />
+   } 
+ 
   return (
-    isAuth ? <Navigate to="/" /> : <Layout>
+    <Layout>
 
       <form onSubmit={loginUser}>
 
