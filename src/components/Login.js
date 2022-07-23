@@ -1,17 +1,14 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
-import { signin } from '../actions';
-import Layout from './Layout';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { signin } from "../actions";
+import Layout from "./Layout";
 
 const Login = () => {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const auth = useSelector(state => state.auth);
-
-
+  const auth = useSelector((state) => state.auth);
 
   const loginUser = (e) => {
     e.preventDefault();
@@ -24,35 +21,45 @@ const Login = () => {
       return;
     }
 
-    dispatch(signin({ email, password }))
-  }
+    dispatch(signin({ email, password }));
+  };
 
   const isAuth = auth.authenticated;
-  if(isAuth){
-  return <Navigate to="/" />
-   } 
- 
+  if (isAuth) {
+    return <Navigate to="/" />;
+  }
+
   return (
     <Layout>
-
       <form onSubmit={loginUser}>
-
         <div className="container">
-          <label for="uname"><b>Username</b></label>
-          <input type="text" placeholder="Enter Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <label for="uname">
+            <b>Username</b>
+          </label>
+          <input
+            type="text"
+            placeholder="Enter Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-          <label for="psw"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <label for="psw">
+            <b>Password</b>
+          </label>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
 
           <button type="submit">Login</button>
-
         </div>
-
       </form>
-
     </Layout>
+  );
+};
 
-  )
-}
-
-export default Login
+export default Login;
